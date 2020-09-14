@@ -1,5 +1,26 @@
 # bili-dynamic-forward
 
+# [1.5.0](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.4.1...v1.5.0) (2020-08-02)
+
+
+### ✨ 新功能
+
+* 新增免打扰时间配置；新增启用周号配置 ([e5d9355](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/e5d9355))
+
+## [1.4.1](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.4.0...v1.4.1) (2020-08-02)
+
+
+### 🐛 Bug 修复
+
+* 优化 最新动态只获取最近24小时内容 ([b65b05a](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/b65b05a))
+
+# [1.4.0](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.3.7...v1.4.0) (2020-08-01)
+
+
+### ✨ 新功能
+
+* 更新 Node.js 版本为 12.18.3 ([2176556](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/2176556))
+
 ## [1.3.7](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.3.6...v1.3.7) (2020-06-28)
 
 

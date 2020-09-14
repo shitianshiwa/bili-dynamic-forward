@@ -54,42 +54,62 @@ port:  酷Q服务器端口。该项请与 `coolq-http-api` 的`ws_port` 字段�
 
 更多属性请参考 [CQ HTTP API 配置项](https://cqhttp.cc/docs/#/Configuration) 。
 
- `coolq-http-api` 的配置请放在 `酷Q\data\app\io.github.richardchien.coolqhttpapi\config\general.json`下
+ go-cqhttp的配置请放在go-cqhttp旁边下
 
-`general.json`文件的配置参考如下：
+`config.json`文件的配置参考如下：
 
 ```json
 {
-    "host": "[::]",
-    "port": 5700,
-    "use_http": true,
-    "ws_host": "[::]",
-    "ws_port": 6700,
-    "use_ws": true,
-    "ws_reverse_url": "",
-    "ws_reverse_api_url": "",
-    "ws_reverse_event_url": "",
-    "ws_reverse_reconnect_interval": 3000,
-    "ws_reverse_reconnect_on_code_1000": true,
-    "use_ws_reverse": false,
-    "post_url": "",
-    "access_token": "",
-    "secret": "",
-    "post_message_format": "string",
-    "serve_data_files": false,
-    "update_source": "github",
-    "update_channel": "stable",
-    "auto_check_update": false,
-    "auto_perform_update": false,
-    "show_log_console": true,
-    "log_level": "debug",
-    "enable_heartbeat": true,
-    "heartbeat_interval": 600000,
-    "enable_rate_limited_actions": true,
-    "rate_limit_interval": 500 
+	"uin": 0,
+	"password": "",
+	"encrypt_password": false,
+	"password_encrypted": "",
+	"enable_db": true,
+	"access_token": "",
+	"relogin": {
+		"enabled": false,
+		"relogin_delay": 10,
+		"max_relogin_times": 3
+	},
+    "_rate_limit": {
+		"enabled": false,
+		"frequency": 1,
+		"bucket_size": 1
+    },
+	"post_message_format": "string",
+	"ignore_invalid_cqcode": false,
+	"force_fragmented": true,
+	"heartbeat_interval": 5,
+	"http_config": {
+		"enabled": true,
+		"host": "127.0.0.1",
+		"port": 5700,
+		"timeout": 5,
+		"post_urls": {"url:port": "secret"}
+	},
+	"ws_config": {
+		"enabled": true,
+		"host": "127.0.0.1",
+		"port": 6700
+	},
+	"ws_reverse_servers": [
+		{
+			"enabled": false,
+            "reverse_url": "ws://127.0.0.1:8080/ws/",
+            "reverse_api_url": "ws://127.0.0.1:8080/ws/api/",
+            "reverse_event_url": "ws://127.0.0.1:8080/ws/event/",
+			"reverse_reconnect_interval": 3000
+		}
+	],
+    "debug": true,
+    "log_level": "warn"
 }
 ```
 
+附加 `filter.json`文件最简配置：
+```json
+{}
+```
 
 
 ## 指令

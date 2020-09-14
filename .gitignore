@@ -31,3 +31,12 @@ coverage
 *.temp.*
 setting.json
 setting.yaml
+nodejs_x64/install_tools.bat
+nodejs_x64/node.exe
+nodejs_x64/node_etw_provider.man
+nodejs_x64/nodevars.bat
+nodejs_x64/npm
+nodejs_x64/npm.cmd
+nodejs_x64/npx
+nodejs_x64/npx.cmd
+package-lock.json

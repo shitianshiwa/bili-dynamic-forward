@@ -5,6 +5,7 @@ import { getUsernameFromUID, getAllFollowings } from './helper'
 import { globalCache, SUBSCRIBE_LIST } from '@/db'
 import { getBiliDynamic } from './dynamic'
 import { getVupAndVtuberList } from './dd'
+import { ENABLE_DAY, FREE_TIMES } from '@/config'
 
 getSubscribeList().then(async list => {
     list = _.uniq(list)
@@ -40,7 +41,7 @@ export async function saveSubscribeList(list: Subscribe[]) {
  * @returns {Promise<Subscribe[]>}
  */
 export async function getSubscribeList(): Promise<Subscribe[]> {
-    if ( !(await fs.pathExists('data/subscribeList.json'))) {
+    if (!(await fs.pathExists('data/subscribeList.json'))) {
         return []
     }
     return fs.readJSON('data/subscribeList.json')
@@ -220,13 +221,25 @@ export async function querySubscribe(subId: number, subType: string) {
  */
 export async function getNotPushDynamic(userId: number, lastDynamic: number, limit: number = 3) {
     const channel = await getBiliDynamic(userId)
-    if (!channel) {
+    const now = new Date()
+    const nowMins = now.getHours() * 60 + now.getMinutes()
+    const [a, b] = FREE_TIMES
+    if (a > b) { // 开始时间比结束早
+        b.setHours(b.getHours() + 24)// 给 b 加24小时到第二天
+    }
+    const aMin = a.getHours() * 60 + a.getMinutes()
+    const bMin = b.getHours() * 60 + b.getMinutes()
+    if (aMin <= nowMins && nowMins <= bMin) { // 在免打扰时间内
+        return []
+    }
+    if (!channel || !ENABLE_DAY.includes(new Date().getDay())) { // 如果当前时间不在推送周期内则跳过
         return []
     }
     return channel?.item.filter(e => {
         if (!e.pubDate) {
             return false
         }
-        return new Date(e.pubDate).getTime() > lastDynamic
+        const pubDate = new Date(e.pubDate).getTime()
+        return pubDate > lastDynamic && (Date.now() - pubDate < 1000 * 60 * 60 * 24) // 获取一天内的动态
     }).reverse().slice(0, limit)
 }

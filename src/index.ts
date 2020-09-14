@@ -19,6 +19,7 @@ bot.on('socket.connecting', (socketType, attempts) => {
 }).on('socket.error', (socketType, error) => {
     printTime('[WebSocket] 连线出现了socket.error错误！！', CQLog.LOG_ERROR)
     console.error(error)
+    process.exit()
 }).on('error', (error) => {
     printTime('[WebSocket] 连线出现了error！！', CQLog.LOG_FATAL)
     console.error(error)

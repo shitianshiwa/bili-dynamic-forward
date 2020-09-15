@@ -1,5 +1,7 @@
 import fs = require('fs-extra')
 import path = require('path')
+import { logger2 } from '../utils/logger2'
+
 
 export class FileStore {
     /**
@@ -61,7 +63,7 @@ export class FileStore {
             await fs.writeFile(filepath, JSON.stringify(file, null, 4))
             return true
         } catch (error) {
-            console.error(error)
+            logger2.error("filestore:" + error)
             return false
         }
     }

@@ -3,6 +3,7 @@ import { getNotPushDynamic, biliDynamicFormat, saveSubscribeList, isNewLive, bil
 import { sleep, sendMsg, sendGroupMsg, sendPrivateMsg, printTime } from '@/utils'
 import { IS_DEBUG, API_SLEEP_TIME, MSG_SLEEP_TIME, SLEEP_TIME } from '@/config'
 import { SUBSCRIBE_LIST } from '@/db'
+import { logger2 } from '../utils/logger2'
 
 /**
  * 向订阅者推送最新动态
@@ -71,7 +72,7 @@ setTimeout(async () => {
         try {
             await pushDynamic(SUBSCRIBE_LIST)
         } catch (error) {
-            console.error(error)
+            logger2.error("schedule"+error)
         }
         await sleep(SLEEP_TIME)
     }

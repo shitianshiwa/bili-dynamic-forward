@@ -1,6 +1,8 @@
 import dotenv = require('dotenv')
-import path = require('path')
-import fs = require('fs-extra')
+//import path = require('path')
+//import fs = require('fs-extra')
+import { logger2 } from '../utils/logger2'
+
 const modes = [
     '.env.local',
     '.env',
@@ -14,7 +16,7 @@ for (let i = 0; i < modes.length; i++) {
     }
 }
 if (process.env.NODE_ENV === 'development') {
-    console.log(envParsed)
+    logger2.info("config:" + envParsed)
 }
 const env = process.env
 /**

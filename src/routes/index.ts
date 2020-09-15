@@ -2,6 +2,7 @@ import { CQApp } from '@/interfaces'
 import { SubscribeType, CQError } from '@/models'
 import { isGroupAdmin, getNumber } from '@/utils'
 import { querySubscribe, transferSubscribeUp, getUsernameFromUID, unsubscribeUp, unsubscribeAllUp, oneClickDD, subscribeUp } from '@/services'
+import { logger2 } from '../utils/logger2'
 
 const app = new CQApp('bili')
 
@@ -55,7 +56,7 @@ app.use(/^订阅转移 (\d+)( (-)?\d+)?$/i, async (bot, ctx) => {
         if (error instanceof CQError) {
             return error.message
         }
-        console.error(error)
+        logger2.error("routes1:"+error)
     }
     return '转移用户关注列表失败！'
 })
@@ -104,7 +105,7 @@ app.use(/^一键dd( \d+)?$/i, async (bot, ctx) => {
         if (error instanceof CQError) {
             return error.message
         }
-        console.error(error)
+        logger2.error("routes2:"+error)
     }
     return '非常抱歉，一键dd失败！'
 })

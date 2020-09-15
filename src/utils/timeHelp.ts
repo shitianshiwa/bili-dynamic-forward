@@ -2,6 +2,7 @@ import moment from 'moment'
 import colors = require('colors')
 import ChiTimeNlpAfter = require('chi-time-nlp-after')
 import { CQLog } from '@/models'
+import {logger2} from './logger2'
 
 /**
  * 解析自然语言中的时间
@@ -54,28 +55,28 @@ export function printTime(msg: string, level: CQLog = CQLog.LOG_DEBUG) {
     const time = timeFormat(Date.now(), 'HH:mm:ss.SSS')
     switch (level) {
         case CQLog.LOG_DEBUG:
-            console.log(time, '->', colors.gray(msg))
+            logger2.info(time, '->', colors.gray(msg))
             break
         case CQLog.LOG_INFO:
-            console.log(time, '->', msg)
+            logger2.info(time, '->', msg)
             break
         case CQLog.LOG_INFO_SUCCESS:
-            console.log(time, '->', colors.cyan(msg))
+            logger2.info(time, '->', colors.cyan(msg))
             break
         case CQLog.LOG_INFO_RECV:
-            console.log(time, '->', colors.blue(msg))
+            logger2.info(time, '->', colors.blue(msg))
             break
         case CQLog.LOG_INFO_SEND:
-            console.log(time, '->', colors.green(msg))
+            logger2.info(time, '->', colors.green(msg))
             break
         case CQLog.LOG_WARNING:
-            console.log(time, '->', colors.yellow(msg))
+            logger2.info(time, '->', colors.yellow(msg))
             break
         case CQLog.LOG_ERROR:
-            console.log(time, '->', colors.red(msg))
+            logger2.info(time, '->', colors.red(msg))
             break
         case CQLog.LOG_FATAL:
-            console.log(time, '->', colors.magenta(msg))
+            logger2.info(time, '->', colors.magenta(msg))
             break
     }
 }

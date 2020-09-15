@@ -4,8 +4,9 @@ import { ajax } from '@/utils/ajax'
 import { jsonDeepParse, timeFormat, sendPrivateMsg } from '@/utils'
 import { RssChannel, RssItem } from '@/models'
 import { CQImage } from 'cq-websocket'
-import { getUsernameFromUID } from './helper'
+//import { getUsernameFromUID } from './helper'
 import { USE_AV } from '@/config'
+//import { logger2 } from '../utils/logger2'
 
 class CardItem {
     desc: any

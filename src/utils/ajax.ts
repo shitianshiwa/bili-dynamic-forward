@@ -2,6 +2,8 @@ import axios, { AxiosResponse } from 'axios'
 import { CACHE, UA } from '@/config'
 import { HttpError, HttpStatusCode } from '@/models'
 import queryString from 'query-string'
+import { logger2 } from './logger2'
+
 /**
  * axios 封装，可满足大部分情况下的需求，若无法满足则重新封装 axios。
  * 返回值中一定包括 status ，通过状态码判断是否响应成功，可自行选择抛出 Error 或处理掉 Error
@@ -38,7 +40,7 @@ export async function ajax(url: string, query: any = {}, data: any = {}, method:
             e.status = error?.response?.status || HttpStatusCode.INTERNAL_SERVER_ERROR
             e.data = error?.response?.data
         }
-        console.log(e)
+        logger2.info("ajax1:" + e)
         return e
     }
 }
@@ -89,7 +91,7 @@ export async function ajax2(config: AjaxConfig = new AjaxConfig()): Promise<Axio
             e.status = error?.response?.status || HttpStatusCode.INTERNAL_SERVER_ERROR
             e.data = error?.response?.data
         }
-        console.log(e)
+        logger2.info("ajax2:" + e)
         return e
     }
 }
@@ -109,7 +111,7 @@ export async function getPublicIP(): Promise<string> {
         ip = ip.replace(/\n/g, '')
         return ip
     } catch (error) {
-        console.log(error)
+        logger2.info("ajax3:" + error)
         return ''
     }
 }

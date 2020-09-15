@@ -1,8 +1,7 @@
 const IS_PROD = process.env.NODE_ENV === 'production'
 module.exports = {
     root: true,
-    globals: {
-    },
+    globals: {},
     env: {
         es6: true,
         commonjs: true,
@@ -12,8 +11,7 @@ module.exports = {
     extends: [
         'eslint:recommended',
     ],
-    plugins: [
-    ],
+    plugins: [],
     parserOptions: {
         ecmaVersion: new Date().getFullYear() - 1,
         sourceType: 'module',
@@ -73,7 +71,7 @@ module.exports = {
         'no-duplicate-imports': [2], // 禁止模块重复导入
         'no-useless-constructor': [2], // 禁用不必要的构造函数
         'spaced-comment': [2, 'always'], // 要求或禁止在注释前有空白
-        "sort-imports": [0, {// import 排序
+        "sort-imports": [0, { // import 排序
             "ignoreCase": false,
             "ignoreDeclarationSort": false,
             "ignoreMemberSort": false,

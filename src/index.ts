@@ -8,6 +8,8 @@ import { CQLog } from './models'
 import './db'
 import './schedule'
 import { app } from './routes'
+import { logger2 } from './utils/logger2'
+
 export const bot = new CQWebSocket(getCQWebSocketOption())
 
 bot.on('socket.connecting', (socketType, attempts) => {
@@ -18,11 +20,11 @@ bot.on('socket.connecting', (socketType, attempts) => {
     printTime(`[WebSocket] 第${attempts}次连线尝试失败 `, CQLog.LOG_WARNING)
 }).on('socket.error', (socketType, error) => {
     printTime('[WebSocket] 连线出现了socket.error错误！！', CQLog.LOG_ERROR)
-    console.error(error)
+    logger2.error("index1:" + error)
     process.exit()
 }).on('error', (error) => {
     printTime('[WebSocket] 连线出现了error！！', CQLog.LOG_FATAL)
-    console.error(error)
+    logger2.error("index2:" + error)
 })
 
 bot.connect()

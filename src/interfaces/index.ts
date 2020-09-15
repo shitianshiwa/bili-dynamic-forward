@@ -2,6 +2,8 @@ import { CQWebSocket, MessageListenerReturn } from 'cq-websocket'
 import { CQError, CQLog } from '@/models'
 import { printTime } from '@/utils'
 import { IS_DEBUG } from '@/config'
+import { logger2 } from '../utils/logger2'
+
 /**
  * 如果返回值为真，则后续的都不再响应。如果返回值为假，则会继续向下匹配
  */
@@ -81,7 +83,7 @@ export class CQApp {
                     printTime(error.message, CQLog.LOG_ERROR)
                     return error.message
                 }
-                console.error(error)
+                logger2.error("interfaces:" + error)
             }
         })
     }

@@ -8,6 +8,7 @@ import { printTime } from './timeHelp'
 import { IS_DEBUG } from '@/config'
 import { CQMessage, CQLog, MemberInfo } from '@/models'
 import { globalCache } from '@/db'
+import {logger2} from './logger2'
 
 /**
  * 获取CQWebSocket配置项，支持yaml和json格式配置
@@ -95,7 +96,7 @@ export async function sendPrivateMsg(user_id: number, message: string | CQMessag
         }
     } catch (error) {
         printTime('[cq-robot]请求 send_private_msg 发生错误', CQLog.LOG_ERROR)
-        console.error(error)
+        logger2.error("appHelper1:"+error)
         return -1000
     }
 }
@@ -129,7 +130,7 @@ export async function sendGroupMsg(group_id: number, message: string | CQMessage
         }
     } catch (error) {
         printTime('[cq-robot]请求 send_group_msg 发生错误', CQLog.LOG_ERROR)
-        console.error(error)
+        logger2.error("appHelper2:"+error)
         return -1000
     }
 }
@@ -213,7 +214,7 @@ export async function getGroupMemberInfo(group_id: number, user_id: number, no_c
         }
     } catch (error) {
         printTime('[cq-robot]请求 get_group_member_info 发生错误', CQLog.LOG_ERROR)
-        console.error(error)
+        logger2.error("appHelper3:"+error)
         return new MemberInfo()
     }
 }

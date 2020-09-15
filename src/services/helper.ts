@@ -2,6 +2,9 @@ import _ = require('lodash')
 import { globalCache, filestore } from '@/db'
 import { ajax, ajax2 } from '@/utils'
 import { FollowingResult, Following, Subscribe, Vtuber } from '@/models'
+//import { logger2 } from '../utils/logger2'
+
+
 /**
  * 取用户名
  *

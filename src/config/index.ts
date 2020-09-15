@@ -16,7 +16,7 @@ for (let i = 0; i < modes.length; i++) {
     }
 }
 if (process.env.NODE_ENV === 'development') {
-    logger2.info("config:" + envParsed)
+    logger2.info("config:" + JSON.stringify(envParsed))
 }
 const env = process.env
 /**

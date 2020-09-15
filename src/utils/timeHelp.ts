@@ -55,28 +55,28 @@ export function printTime(msg: string, level: CQLog = CQLog.LOG_DEBUG) {
     const time = timeFormat(Date.now(), 'HH:mm:ss.SSS')
     switch (level) {
         case CQLog.LOG_DEBUG:
-            logger2.info(time, '->', colors.gray(msg))
+            logger2.info(time+'->'+colors.gray(msg))
             break
         case CQLog.LOG_INFO:
-            logger2.info(time, '->', msg)
+            logger2.info(time+ '->'+ msg)
             break
         case CQLog.LOG_INFO_SUCCESS:
-            logger2.info(time, '->', colors.cyan(msg))
+            logger2.info(time+ '->'+ colors.cyan(msg))
             break
         case CQLog.LOG_INFO_RECV:
-            logger2.info(time, '->', colors.blue(msg))
+            logger2.info(time+ '->'+ colors.blue(msg))
             break
         case CQLog.LOG_INFO_SEND:
-            logger2.info(time, '->', colors.green(msg))
+            logger2.info(time+ '->'+ colors.green(msg))
             break
         case CQLog.LOG_WARNING:
-            logger2.info(time, '->', colors.yellow(msg))
+            logger2.info(time+ '->'+ colors.yellow(msg))
             break
         case CQLog.LOG_ERROR:
-            logger2.info(time, '->', colors.red(msg))
+            logger2.info(time+ '->'+ colors.red(msg))
             break
         case CQLog.LOG_FATAL:
-            logger2.info(time, '->', colors.magenta(msg))
+            logger2.info(time+ '->'+ colors.magenta(msg))
             break
     }
 }

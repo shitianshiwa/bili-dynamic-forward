@@ -26,6 +26,7 @@ export async function getBiliDynamic(uid: number) {
         return
     }
     const uname = cards[0]?.desc?.user_profile?.info?.uname || ''
+    //console.log(uname);
     return new RssChannel({
         title: `${uname} 的 bilibili 动态`,
         link: `https://space.bilibili.com/${uid}/#/dynamic`,

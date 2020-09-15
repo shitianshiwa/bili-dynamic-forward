@@ -6,7 +6,9 @@ import { FollowingResult, Following, Subscribe, Vtuber } from '@/models'
  * 取用户名
  *
  * @author CaoMeiYouRen
+ * @author CaoMeiYouRen2
  * @date 2020-06-17
+ * @date2 2020-09-15
  * @export
  * @param {number} uid
  * @returns
@@ -15,10 +17,9 @@ export async function getUsernameFromUID(uid: number) {
     if (typeof uid !== 'number' || uid <= 0) {
         return ''
     }
-    const key = `bili-username-from-uid-${uid}`
-    let name: string = (await globalCache.get(key)) || ''
-    if (!name) {
-        const result = await ajax2({
+    //https://api.bilibili.com/x/space/acc/info?mid=2&jsonp=jsonp
+    /**
+    const result = await ajax2({
             url: 'https://space.bilibili.com/ajax/member/GetInfo',
             data: { mid: uid },
             method: 'POST',
@@ -27,11 +28,21 @@ export async function getUsernameFromUID(uid: number) {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
         })
-        // console.log(result.data)
-        if (result.data?.status) {
+     */
+    const key = `bili-username-from-uid-${uid}`
+    let name: string = (await globalCache.get(key)) || ''
+    if (!name) {
+        const result = await ajax('https://api.bilibili.com/x/space/acc/info', {
+            mid: uid, jsonp: 'jsonp'
+        }, {}, 'GET', {
+            Referer: `https://space.bilibili.com/${uid}/`,
+        })
+        //console.log(result.data)
+        if (result.data?.code == 0) {
             name = result.data?.data?.name
             await globalCache.set(key, name, 3600 * 24 * 7)
         }
+        //console.log("name:" + name + "," + JSON.stringify(result.data.data.name))
     }
     return name
 }

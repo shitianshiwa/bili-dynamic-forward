@@ -59,6 +59,7 @@
         "chi-time-nlp-after": "^1.0.5",
         "colors": "^1.4.0",
         "cq-websocket": "^2.1.1",
+        "dayjs": "^1.8.35",
         "debug": "^4.1.1",
         "dotenv": "^8.2.0",
         "fs-extra": "^9.0.1",
@@ -76,8 +77,8 @@
         "rimraf": "^3.0.2",
         "rxjs": "^6.5.5",
         "ts-dingtalk-robot": "^1.0.0",
-        "yaml": "^1.10.0",
-        "winston": "^3.2.1"
+        "winston": "^3.2.1",
+        "yaml": "^1.10.0"
     },
     "devDependencies": {
         "@commitlint/config-conventional": "^9.0.1",

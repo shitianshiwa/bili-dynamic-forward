@@ -1,5 +1,7 @@
 # bili-dynamic-forward
 
+# 除非是第一次使用go-cqhttp，否则启动插件里面的go-cqhttp前，先把device.json（虚拟设备信息）文件复制过去，防止出现频繁使用新设备登录QQ，导致机器人QQ被冻结！
+
 # 解压nodejs_x64.7z和node_modules_x64.7z，然后点start_x64.bat即可启动
 # 需要配合https://github.com/Mrs4s/go-cqhttp/ 使用
 # 使用node-sdk https://github.com/shitianshiwa/node-cq-websocket

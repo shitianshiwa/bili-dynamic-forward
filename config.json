@@ -7,7 +7,7 @@
     "access_token": "",
     "relogin": {
         "enabled": false,
-        "relogin_delay": 60,
+        "relogin_delay": 10,
         "max_relogin_times": 3
     },
     "_rate_limit": {
@@ -23,7 +23,7 @@
         "enabled": false,
         "host": "127.0.0.1",
         "port": 5700,
-        "Timeout": 5,
+        "Timeout": 10,
         "post_urls": {
             "http://127.0.0.1:8988": ""
         }

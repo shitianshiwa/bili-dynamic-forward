@@ -70,13 +70,13 @@ export function printTime(msg: string, level: CQLog = CQLog.LOG_DEBUG) {
             logger2.info(time+ '->'+ colors.green(msg))
             break
         case CQLog.LOG_WARNING:
-            logger2.info(time+ '->'+ colors.yellow(msg))
+            logger2.error(time+ '->'+ colors.yellow(msg))
             break
         case CQLog.LOG_ERROR:
-            logger2.info(time+ '->'+ colors.red(msg))
+            logger2.error(time+ '->'+ colors.red(msg))
             break
         case CQLog.LOG_FATAL:
-            logger2.info(time+ '->'+ colors.magenta(msg))
+            logger2.error(time+ '->'+ colors.magenta(msg))
             break
     }
 }

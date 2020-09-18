@@ -96,7 +96,7 @@ export async function sendPrivateMsg(user_id: number, message: string | CQMessag
         }
     } catch (error) {
         printTime('[cq-robot]请求 send_private_msg 发生错误', CQLog.LOG_ERROR)
-        logger2.error("appHelper1:"+error)
+        //logger2.error("appHelper1:"+error)
         return -1000
     }
 }
@@ -130,7 +130,7 @@ export async function sendGroupMsg(group_id: number, message: string | CQMessage
         }
     } catch (error) {
         printTime('[cq-robot]请求 send_group_msg 发生错误', CQLog.LOG_ERROR)
-        logger2.error("appHelper2:"+error)
+        //logger2.error("appHelper2:"+error)
         return -1000
     }
 }

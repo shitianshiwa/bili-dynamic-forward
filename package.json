@@ -78,7 +78,8 @@
         "rxjs": "^6.5.5",
         "ts-dingtalk-robot": "^1.0.0",
         "winston": "^3.2.1",
-        "yaml": "^1.10.0"
+        "yaml": "^1.10.0",
+        "node-localstorage": "^2.1.5"
     },
     "devDependencies": {
         "@commitlint/config-conventional": "^9.0.1",

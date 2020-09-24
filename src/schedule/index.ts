@@ -4,6 +4,10 @@ import { sleep, sendMsg, sendGroupMsg, sendPrivateMsg, printTime } from '@/utils
 import { IS_DEBUG, API_SLEEP_TIME, MSG_SLEEP_TIME, SLEEP_TIME } from '@/config'
 import { SUBSCRIBE_LIST } from '@/db'
 import { logger2 } from '../utils/logger2'
+import node_localStorage from 'node-localstorage';
+const node_localStorage2 = node_localStorage.LocalStorage;
+const bili = new node_localStorage2('./bili'); //插件是否连上机器人
+
 
 /**
  * 向订阅者推送最新动态
@@ -16,6 +20,10 @@ import { logger2 } from '../utils/logger2'
  */
 export async function pushDynamic(list: Subscribe[]) {
     for (let i = 0; i < list.length; i++) {
+        if (bili.getItem("huozhe") == "false") {
+            logger2.info(new Date().toString() + ",连不上机器人，跳过订阅bilibili2");
+            break;
+        }
         const sub = list[i]
         const dynamics = await getNotPushDynamic(sub.userId, sub.lastDynamic)
         if (dynamics.length > 0) {
@@ -69,10 +77,15 @@ setTimeout(async () => {
     printTime('开始轮询最新动态', CQLog.LOG_DEBUG)
     // eslint-disable-next-line no-constant-condition
     while (true) {
-        try {
-            await pushDynamic(SUBSCRIBE_LIST)
-        } catch (error) {
-            logger2.error("schedule"+error)
+        if (bili.getItem("huozhe") == "false") {
+            logger2.info(new Date().toString() + ",连不上机器人，跳过订阅bilibili");
+        }
+        else {
+            try {
+                await pushDynamic(SUBSCRIBE_LIST)
+            } catch (error) {
+                logger2.error("schedule" + error)
+            }
         }
         await sleep(SLEEP_TIME)
     }

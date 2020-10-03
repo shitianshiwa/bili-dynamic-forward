@@ -174,9 +174,9 @@ export function biliDynamicFormat(userName: string, dynamic: RssItem) {
     text += `${dynamic.description}\n`
     if (dynamic.images?.length) {
         text += `${dynamic.images?.map(e => {
-            if (!e.includes('@')) { // 开启图片压缩
+            /*if (!e.includes('@')) { // 开启图片压缩 浏览器测试链接似乎会跳转到原图片链接
                 e += '@518w_1e_1c.png'
-            }
+            }*/
             return new CQImage(e).toString()
         }).join('')}\n`
     }

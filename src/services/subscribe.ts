@@ -240,6 +240,6 @@ export async function getNotPushDynamic(userId: number, lastDynamic: number, lim
             return false
         }
         const pubDate = new Date(e.pubDate).getTime()
-        return pubDate > lastDynamic && (Date.now() - pubDate < 1000 * 60 * 60 * 24) // 获取一天内的动态
+        return pubDate > lastDynamic/* && (Date.now() - pubDate < 1000 * 60 * 60 * 24)*/ // 获取一天内的动态
     }).reverse().slice(0, limit)
 }

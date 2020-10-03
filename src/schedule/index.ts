@@ -25,7 +25,7 @@ export async function pushDynamic(list: Subscribe[]) {
             break;
         }
         const sub = list[i]
-        const dynamics = await getNotPushDynamic(sub.userId, sub.lastDynamic)
+        const dynamics = await getNotPushDynamic(sub.userId, sub.lastDynamic, 12)//单次最多可以推送12个动态
         if (dynamics.length > 0) {
             for (let j = 0; j < dynamics.length; j++) {
                 const d = dynamics[j]

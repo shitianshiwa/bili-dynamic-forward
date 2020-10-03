@@ -15,6 +15,7 @@ export const logger2 = winston.createLogger({
         }),
         new winston.transports.File({
             filename: 'logs/combined.log',
+            level: 'warn',
             maxsize:10485760
         })
     ]

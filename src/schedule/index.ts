@@ -21,7 +21,7 @@ const bili = new node_localStorage2('./bili'); //插件是否连上机器人
 export async function pushDynamic(list: Subscribe[]) {
     for (let i = 0; i < list.length; i++) {
         if (bili.getItem("huozhe") == "false") {
-            logger2.info(new Date().toString() + ",连不上机器人，跳过订阅bilibili2");
+            logger2.error(new Date().toString() + ",连不上机器人，跳过订阅bilibili2");
             break;
         }
         const sub = list[i]
@@ -78,7 +78,7 @@ setTimeout(async () => {
     // eslint-disable-next-line no-constant-condition
     while (true) {
         if (bili.getItem("huozhe") == "false") {
-            logger2.info(new Date().toString() + ",连不上机器人，跳过订阅bilibili");
+            logger2.error(new Date().toString() + ",连不上机器人，跳过订阅bilibili");
         }
         else {
             try {

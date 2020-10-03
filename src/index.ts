@@ -32,7 +32,7 @@ bot.on('socket.connecting', (socketType, attempts) => {
 }).on('error', (error) => {
     printTime('[WebSocket] 连线出现了error！！', CQLog.LOG_FATAL)
     logger2.error("index2:" + error)
-    bili.setItem("huozhe", false)
+    //bili.setItem("huozhe", false)
 })
 
 bot.connect()

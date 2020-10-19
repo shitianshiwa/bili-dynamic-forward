@@ -1,3 +1,4 @@
+process.env.TZ='Asia/Shanghai';
 import path = require('path')
 import fs = require('fs-extra')
 import moduleAlias from 'module-alias'

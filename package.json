@@ -1,15 +1,15 @@
-{
-    "name": "bili-dynamic-forward",
-    "version": "1.5.0",
-    "author": "CaoMeiYouRen",
-    "description": "B站动态转发机器人",
-    "main": "dist/index.js",
-    "jsdelivr": "dist/index.js",
-    "files": [
+    {
+      "name": "bili-dynamic-forward",
+      "version": "1.5.2",
+      "author": "CaoMeiYouRen",
+      "描述": "B站动态转发机器人",
+      "main": "dist/index.js",
+      "jsdelivr": "dist/index.js",
+      "files": [
         "dist"
-    ],
-    "license": "MIT",
-    "scripts": {
+      ],
+      "license": "MIT",
+      "scripts": {
         "lint": "cross-env NODE_ENV=production eslint src --fix --ext .ts,.js",
         "start": "node dist/index.js",
         "dev": "cross-env NODE_ENV=development ts-node-dev src/index.ts",
@@ -27,39 +27,38 @@
         "test:e2e": "mocha -r ts-node/register test/register.ts test/**/*.test.ts -R nyan -t 10000",
         "test:nyc": "rimraf coverage && nyc --reporter=lcov --reporter=text mocha -r ts-node/register test/register.ts src/**/*.test.ts test/**/*.test.ts -R nyan -t 10000",
         "test:webpack": "rimraf dist && cross-env NODE_ENV=development webpack --config ./webpack.config.js && cross-env MODE_ENV=test CACHE_TYPE=memory npm run start"
-    },
-    "engines": {
+      },
+      "engines": {
         "cqhttp": "^4.5.0",
         "node": ">=12"
-    },
-    "repository": {
+      },
+      "repository": {
         "type": "git",
         "url": "git+https://github.com/CaoMeiYouRen/bili-dynamic-forward.git"
-    },
-    "bugs": {
+      },
+      "bugs": {
         "url": "https://github.com/CaoMeiYouRen/bili-dynamic-forward/issues"
-    },
-    "homepage": "https://github.com/CaoMeiYouRen/bili-dynamic-forward#readme",
-    "config": {
+      },
+      "homepage": "https://github.com/CaoMeiYouRen/bili-dynamic-forward#readme",
+      "config": {
         "commitizen": {
-            "path": "cz-conventional-changelog"
+          "path": "cz-conventional-changelog"
         }
-    },
-    "husky": {
+      },
+      "husky": {
         "hooks": {
-            "pre-commit": "npm run test",
-            "commit-msg": "validate-commit-msg"
+          "pre-commit": "npm run test",
+          "commit-msg": "validate-commit-msg"
         }
-    },
-    "changelog": {
+      },
+      "changelog": {
         "language": "zh"
-    },
-    "dependencies": {
-        "axios": "^0.19.2",
+      },
+      "dependencies": {
+        "axios": "^0.20.0",
         "chi-time-nlp-after": "^1.0.5",
         "colors": "^1.4.0",
         "cq-websocket": "^2.1.1",
-        "dayjs": "^1.8.35",
         "debug": "^4.1.1",
         "dotenv": "^8.2.0",
         "fs-extra": "^9.0.1",
@@ -79,10 +78,11 @@
         "ts-dingtalk-robot": "^1.0.0",
         "winston": "^3.2.1",
         "yaml": "^1.10.0",
-        "node-localstorage": "^2.1.5"
-    },
-    "devDependencies": {
-        "@commitlint/config-conventional": "^9.0.1",
+        "node-localstorage": "^2.1.5",
+        "dayjs": "^1.8.35"
+      },
+      "devDependencies": {
+        "@commitlint/config-conventional": "^11.0.0",
         "@semantic-release/changelog": "^5.0.1",
         "@semantic-release/commit-analyzer": "^8.0.1",
         "@semantic-release/exec": "^5.0.0",
@@ -101,7 +101,7 @@
         "@types/node": "^14.0.13",
         "@types/pidusage": "^2.0.1",
         "@types/supertest": "^2.0.9",
-        "@typescript-eslint/eslint-plugin": "^3.2.0",
+        "@typescript-eslint/eslint-plugin": "^4.0.0",
         "@typescript-eslint/parser": "^3.2.0",
         "babel-eslint": "^10.1.0",
         "commitizen": "^4.1.2",
@@ -110,16 +110,17 @@
         "cross-env": "^7.0.2",
         "cz-conventional-changelog": "^3.2.0",
         "eslint": "^7.2.0",
+        "eslint-config-cmyr": "^0.8.2",
         "husky": "^4.2.5",
         "mocha": "^8.0.1",
         "semantic-release": "^17.0.8",
         "should": "^13.2.3",
-        "supertest": "^4.0.2",
+        "supertest": "^5.0.0",
         "ts-loader": "^8.0.0",
         "ts-node-dev": "^1.0.0-pre.44",
-        "typescript": "^3.9.5",
+        "typescript": "^4.0.2",
         "validate-commit-msg": "^2.14.0",
         "webpack": "^4.43.0",
-        "webpack-cli": "^3.3.11"
+        "webpack-cli": "^4.0.0"
+      }
     }
-}

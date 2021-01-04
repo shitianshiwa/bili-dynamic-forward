@@ -95,7 +95,7 @@ app.use(/^取消全部订阅$/i, async (bot, ctx) => {
     return '非常抱歉，取消全部订阅失败！'
 })
 
-app.use(/^一键dd( \d+)?$/i, async (bot, ctx) => {
+/*app.use(/^一键dd( \d+)?$/i, async (bot, ctx) => {
     const { user_id, group_id, sub_id, sub_type, message } = ctx
     try {
         const limit = getNumber(message) || 20
@@ -108,6 +108,6 @@ app.use(/^一键dd( \d+)?$/i, async (bot, ctx) => {
         logger2.error("routes2:"+error)
     }
     return '非常抱歉，一键dd失败！'
-})
+})*/
 
 export { app }

@@ -7,7 +7,7 @@ import { logger2 } from '../utils/logger2'
 const app = new CQApp('bili')
 
 app.use(/^(订阅)?(主菜单|指令)$/i, (bot, ctx) => {
-    return 'bili主菜单\nbili订阅列表\nbili订阅 [uid]\nbili取消订阅 [uid]\nbili取消全部订阅\nbili订阅转移 [uid] [?tagid]\nbili一键dd [?num]'
+    return 'bili主菜单\nbili订阅列表\nbili订阅 [uid]\nbili取消订阅 [uid]\nbili取消全部订阅\nbili订阅转移 [uid] [?tagid]\nbili一键dd [?num](目前无效)'
 })
 
 app.use(/.*/i, async (bot, ctx) => {

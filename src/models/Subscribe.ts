@@ -57,7 +57,12 @@ export class Subscribe {
      * @type {number}
      */
     lastDynamic: number = Date.now()
-
+    /**
+     * 最后一条动态的链接
+     *
+     * @type {string}
+     */
+    lasturl: string
     /**
      * 最后一次直播的时间
      *

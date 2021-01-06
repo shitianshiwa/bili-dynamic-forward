@@ -1,11 +1,12 @@
 import fs = require('fs-extra')
 import _ from 'lodash'
-import { Subscribe, Subscriber, CQError, SubscribeError, SubscribeType } from '@/models'
+import { RssChannel, RssItem, Subscribe, Subscriber, CQError, SubscribeError, SubscribeType } from '@/models'
 import { getUsernameFromUID, getAllFollowings } from './helper'
 import { globalCache, SUBSCRIBE_LIST } from '@/db'
 import { getBiliDynamic } from './dynamic'
 import { getVupAndVtuberList } from './dd'
 import { ENABLE_DAY, FREE_TIMES } from '@/config'
+import { logger2 } from '@/utils/logger2'
 
 getSubscribeList().then(async list => {
     list = _.uniq(list)
@@ -67,6 +68,7 @@ export async function subscribeUp(userId: number, subId: number, subType: string
             userId,
             userName,
             lastDynamic: Date.now(),
+            lasturl: "",
             lastLive: Date.now(),
             subscribers: [
                 {
@@ -219,7 +221,7 @@ export async function querySubscribe(subId: number, subType: string) {
  * @param {number} [limit=3]
  * @returns
  */
-export async function getNotPushDynamic(userId: number, lastDynamic: number, limit: number = 3) {
+export async function getNotPushDynamic(userId: number, lasturl: string, limit: number = 3) {
     const channel = await getBiliDynamic(userId)
     const now = new Date()
     const nowMins = now.getHours() * 60 + now.getMinutes()
@@ -235,11 +237,23 @@ export async function getNotPushDynamic(userId: number, lastDynamic: number, lim
     if (!channel || !ENABLE_DAY.includes(new Date().getDay())) { // 如果当前时间不在推送周期内则跳过
         return []
     }
-    return channel?.item.filter(e => {
-        if (!e.pubDate) {
+    let rss = new Array();
+    logger2.info("lasturl: " + lasturl)
+    for (let i = 0; i < channel.item.length; i++) {
+        logger2.info(channel.item[i].link)
+        if (channel.item[i].link == lasturl) {
+            break
+        }
+        else {
+            rss.push(channel.item[i])
+        }
+    }
+    return rss.reverse();//数组倒转顺序
+    /*return channel?.item.filter(e => {
+        if (!e.link) {
             return false
         }
-        const pubDate = new Date(e.pubDate).getTime()
-        return pubDate > lastDynamic/* && (Date.now() - pubDate < 1000 * 60 * 60 * 24)*/ // 获取一天内的动态
-    }).reverse().slice(0, limit)
+        //const pubDate = new Date(e.pubDate).getTime()
+        return e.link != lasturl(*//* && (Date.now() - pubDate < 1000 * 60 * 60 * 24)*/ // 获取一天内的动态
+    //}).reverse().slice(0, limit)
 }

@@ -25,14 +25,17 @@ export async function pushDynamic(list: Subscribe[]) {
             break;
         }
         const sub = list[i]
-        const dynamics = await getNotPushDynamic(sub.userId, sub.lastDynamic, 12)//单次最多可以推送12个动态
+        const dynamics = await getNotPushDynamic(sub.userId, sub.lasturl, 12)//单次最多可以推送12个动态
+        //logger2.info("dynamics.length: "+dynamics.length);
         if (dynamics.length > 0) {
             for (let j = 0; j < dynamics.length; j++) {
                 const d = dynamics[j]
+                //logger2.info(JSON.stringify(d));
                 const suber = sub.subscribers
-                const text = biliDynamicFormat(sub.userName, d)
+                let text = biliDynamicFormat(sub.userName, d)
                 for (let k = 0; k < suber.length; k++) {
                     const s = suber[k]
+                    //logger2.info(text);
                     if (s.subType === 'group') {
                         await sendGroupMsg(s.subId, text)
                     } else {
@@ -40,17 +43,18 @@ export async function pushDynamic(list: Subscribe[]) {
                     }
                     await sleep(MSG_SLEEP_TIME)
                 }
-                list[i].lastDynamic = Date.now()
-                await saveSubscribeList(list)
             }
+            list[i].lastDynamic = Date.now()
+            list[i].lasturl = dynamics[dynamics.length - 1].link;
+            await saveSubscribeList(list)
         } else {
             printTime(`当前用户 ${sub.userName} 没有新动态`, CQLog.LOG_DEBUG)
         }
         await sleep(API_SLEEP_TIME)
-        const live = await isNewLive(sub.userId)
-        if (live) {
-            const suber = sub.subscribers
-            const text = biliLiveFormat(sub.userName, live)
+        let live = await isNewLive(sub.userId)
+        if (live) {//直播
+            let suber = sub.subscribers
+            let text = biliLiveFormat(sub.userName, live)
             for (let k = 0; k < suber.length; k++) {
                 const s = suber[k]
                 if (s.subType === 'group') {

@@ -6,6 +6,7 @@ import { RssChannel, RssItem } from '@/models'
 import { CQImage } from 'cq-websocket'
 //import { getUsernameFromUID } from './helper'
 import { USE_AV } from '@/config'
+import { logger2 } from '@/utils/logger2'
 //import { logger2 } from '../utils/logger2'
 
 class CardItem {
@@ -19,6 +20,7 @@ class CardItem {
 export async function getBiliDynamic(uid: number) {
     const result = await ajax('https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/space_history', {
         host_uid: uid,
+       // need_top: 1//获取置顶贴
     }, {}, 'GET', {
         Referer: `https://space.bilibili.com/${uid}/`,
     })
@@ -156,8 +158,7 @@ export async function getBiliDynamic(uid: number) {
             return new RssItem({
                 title: getTitle(data),
                 link,
-                description: `${getDes(data)}${
-                    origin && getOriginName(origin) ? `\n//@${getOriginName(origin)}: ${getOriginTitle(origin.item || origin)}${getDes(origin.item || origin)}` : `${getOriginDes(origin)}`}${getUrl(data)}${getUrl(origin)}`,
+                description: `${getDes(data)}${origin && getOriginName(origin) ? `\n//@${getOriginName(origin)}: ${getOriginTitle(origin.item || origin)}${getDes(origin.item || origin)}` : `${getOriginDes(origin)}`}${getUrl(data)}${getUrl(origin)}`,
                 images,
                 pubDate: new Date(item.desc.timestamp * 1000),
             })
@@ -166,6 +167,7 @@ export async function getBiliDynamic(uid: number) {
 }
 
 export function biliDynamicFormat(userName: string, dynamic: RssItem) {
+    //logger2.info(JSON.stringify(dynamic));
     let text = `检测到您关注的B站up主 ${userName} 发布了新的动态\n`
     // 排除简介内容和标题重复
     if (dynamic.title && !dynamic.description.startsWith(dynamic.title)) {
@@ -182,6 +184,7 @@ export function biliDynamicFormat(userName: string, dynamic: RssItem) {
     }
     text += `动态链接：${dynamic.link}\n`
     text += `发布时间：${timeFormat(dynamic.pubDate)}`
+    //logger2.info(text);
     return text.replace(/(\n[\s|\t]*\r*\n)/g, '\n')
 }
 

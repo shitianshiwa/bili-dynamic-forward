@@ -27,7 +27,12 @@ export async function pushDynamic(list: Subscribe[]) {
         const sub = list[i]
         const dynamics = await getNotPushDynamic(sub.userId, sub.lasturl, 12)//单次最多可以推送12个动态
         //logger2.info("dynamics.length: "+dynamics.length);
-        if (dynamics.length > 0) {
+        if (list[i].lasturl == "") {//解决首次订阅疯狂转发12条消息
+            logger2.info("首次获取订阅信息");
+            list[i].lastDynamic = Date.now()
+            list[i].lasturl = dynamics[dynamics.length - 1].link;
+        }
+        else if (dynamics.length > 0) {
             for (let j = 0; j < dynamics.length; j++) {
                 const d = dynamics[j]
                 //logger2.info(JSON.stringify(d));

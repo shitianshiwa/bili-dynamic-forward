@@ -20,7 +20,9 @@ class CardItem {
 export async function getBiliDynamic(uid: number) {
     const result = await ajax('https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/space_history', {
         host_uid: uid,
-       // need_top: 1//获取置顶贴
+        need_top: 0,//获取置顶贴
+        offset_dynamic_id: 0//https://www.mywiki.cn/dgck81lnn/index.php/%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9API%E8%AF%A6%E8%A7%A3 哔哩哔哩API详解
+        //host_uid=【UID】&offset_dynamic_id=【从哪条开始，0为从最新的开始】&need_top=【是否包含置顶动态，1=输出，0=不输出】
     }, {}, 'GET', {
         Referer: `https://space.bilibili.com/${uid}/`,
     })
@@ -29,7 +31,7 @@ export async function getBiliDynamic(uid: number) {
         return
     }
     const uname = cards[0]?.desc?.user_profile?.info?.uname || ''
-    //console.log(uname);
+    //console.log(uname)
     return new RssChannel({
         title: `${uname} 的 bilibili 动态`,
         link: `https://space.bilibili.com/${uid}/#/dynamic`,
@@ -38,7 +40,7 @@ export async function getBiliDynamic(uid: number) {
             const card = item.card
             const data = card.item || card
             const origin = card.origin
-
+            let dynamic_idx = item.desc.dynamic_id
             // img
             let images: string[] = []
             const getImgs = (data) => {
@@ -81,6 +83,12 @@ export async function getBiliDynamic(uid: number) {
                 link = `https://t.bilibili.com/${data.dynamic_id_str}`
             } else if (item?.desc?.dynamic_id_str) {
                 link = `https://t.bilibili.com/${item.desc.dynamic_id_str}`
+            }
+            else if (item?.desc?.bvid) {
+                link = `找不到动态链接:https://t.bilibili.com/${item.desc.bvid}`
+            }
+            else {
+                link = `找不到动态链接:${item.desc.dynamic_id}`
             }
             const getTitle = (data) => data.title || '' // || data.description || data.content || data?.vest?.content || ''
             const getDes = (data) => {
@@ -156,6 +164,7 @@ export async function getBiliDynamic(uid: number) {
                 return ''
             }
             return new RssItem({
+                dynamic_id: dynamic_idx,
                 title: getTitle(data),
                 link,
                 description: `${getDes(data)}${origin && getOriginName(origin) ? `\n//@${getOriginName(origin)}: ${getOriginTitle(origin.item || origin)}${getDes(origin.item || origin)}` : `${getOriginDes(origin)}`}${getUrl(data)}${getUrl(origin)}`,
@@ -167,7 +176,7 @@ export async function getBiliDynamic(uid: number) {
 }
 
 export function biliDynamicFormat(userName: string, dynamic: RssItem) {
-    //logger2.info(JSON.stringify(dynamic));
+    //logger2.info(JSON.stringify(dynamic))
     let text = `检测到您关注的B站up主 ${userName} 发布了新的动态\n`
     // 排除简介内容和标题重复
     if (dynamic.title && !dynamic.description.startsWith(dynamic.title)) {
@@ -184,7 +193,7 @@ export function biliDynamicFormat(userName: string, dynamic: RssItem) {
     }
     text += `动态链接：${dynamic.link}\n`
     text += `发布时间：${timeFormat(dynamic.pubDate)}`
-    //logger2.info(text);
+    //logger2.info(text)
     return text.replace(/(\n[\s|\t]*\r*\n)/g, '\n')
 }
 

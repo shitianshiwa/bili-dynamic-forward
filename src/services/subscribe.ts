@@ -65,6 +65,8 @@ export async function subscribeUp(userId: number, subId: number, subType: string
             userName = await getUsernameFromUID(userId)
         }
         sub = new Subscribe({
+            dynamic_id: 0,
+            dynamic_id2: 0,//缓解删动态暴走
             userId,
             userName,
             lastDynamic: Date.now(),
@@ -221,7 +223,7 @@ export async function querySubscribe(subId: number, subType: string) {
  * @param {number} [limit=3]
  * @returns
  */
-export async function getNotPushDynamic(userId: number, lasturl: string, limit: number = 3) {
+export async function getNotPushDynamic(userId: number, dynamic_id: number, dynamic_id2: number, limit: number = 3) {
     const channel = await getBiliDynamic(userId)
     const now = new Date()
     const nowMins = now.getHours() * 60 + now.getMinutes()
@@ -237,18 +239,19 @@ export async function getNotPushDynamic(userId: number, lasturl: string, limit: 
     if (!channel || !ENABLE_DAY.includes(new Date().getDay())) { // 如果当前时间不在推送周期内则跳过
         return []
     }
-    let rss = new Array();
-    logger2.info("lasturl: " + lasturl)
+    let rss = new Array()
+    logger2.info("dynamic_id: " + dynamic_id)
     for (let i = 0; i < channel.item.length; i++) {
+        logger2.info(channel.item[i].dynamic_id)
         logger2.info(channel.item[i].link)
-        if (channel.item[i].link == lasturl) {
+        if (channel.item[i].dynamic_id == dynamic_id || (channel.item[i].dynamic_id == dynamic_id2 && dynamic_id2 != 0)) {//临时解决方案对比本地记录的第一个b站动态和第二个b站动态id，减轻刷屏程度
             break
         }
         else {
             rss.push(channel.item[i])
         }
     }
-    return rss.reverse();//数组倒转顺序
+    return rss.reverse()//数组倒转顺序
     /*return channel?.item.filter(e => {
         if (!e.link) {
             return false

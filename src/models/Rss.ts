@@ -1,5 +1,11 @@
 export class RssItem {
     /**
+     * b站动态id
+     *
+     * @type {number}
+     */
+    dynamic_id: number
+    /**
      * 此项的标题
      *
      * @type {string}

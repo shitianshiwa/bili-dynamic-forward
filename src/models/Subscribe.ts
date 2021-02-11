@@ -40,6 +40,18 @@ export class Subscriber {
  */
 export class Subscribe {
     /**
+     * b站动态id
+     *
+     * @type {number}
+     */
+    dynamic_id: number
+     /**
+     * b站减轻暴走现象动态id
+     *
+     * @type {number}
+     */
+    dynamic_id2: number
+    /**
      * 订阅的up主uid
      *
      * @type {number}
